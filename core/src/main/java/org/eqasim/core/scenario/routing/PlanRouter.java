@@ -48,6 +48,11 @@ public class PlanRouter {
 						throw new IllegalStateException(
 								"Found undefined activity end time for agent " + plan.getPerson().getId().toString());
 					}
+					
+					if (departureTime.seconds() <= 0) {
+						departureTime = OptionalTime.defined(86400.);
+						System.out.println("Custom End Time Patch Triggered");
+					}
 
 					Facility fromFacility = FacilitiesUtils.toFacility(trip.getOriginActivity(), facilities);
 					Facility toFacility = FacilitiesUtils.toFacility(trip.getDestinationActivity(), facilities);
